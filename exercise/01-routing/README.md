@@ -2,6 +2,45 @@
 
 ## 📝 Notes
 
+Remix has built-in routing. There are three options for routing in a Remix app:
+
+1. [File-system](https://remix.run/docs/en/v1/api/conventions#file-name-conventions)
+   based routes (most common)
+2. [`remix.config.js`](https://remix.run/docs/en/v1/api/conventions#routes)
+   based routes (less common)
+3. Runtime defined routes (primarily used for
+   [migrations](https://remix.run/docs/en/v1/guides/migrating-react-router-app))
+
+When you place a file in `app/routes` Remix creates a route for that file. You
+can
+[read about the filename convention here](https://remix.run/docs/en/v1/api/conventions#file-name-conventions).
+the file should have a component as the `default` `export` which will be
+rendered for the part of the UI the file represents
+
+```tsx filename=app/routes/example.tsx
+export default function ExampleRoute() {
+  return (
+    <div>
+      <h1>Example</h1>
+      <p>I am a good example</p>
+    </div>
+  );
+}
+```
+
+Every Remix app starts with a root route found in `app/root.tsx`.
+
+To navigate between URLs on the web, we use `<a>` (anchor) tags with an `href`.
+This triggers a full-page reload between the pages. This isn't the best
+experience, so Remix supports client-side navigations by preventing this default
+behavior and interacting directly with the browser's `history` API. To do this,
+we'll be using the `<Link />` component and the `to` prop:
+
+```tsx
+<a href="/puppies">Full-page reload happiness</a>
+<Link to="/puppies">Client-side navigation happiness</Link>
+```
+
 ## 🤓 Background
 
 Almost everything with a URL has routing requirements. Whether it's a web app,
